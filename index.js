@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const {MONGO_URI} = require('./KEYS')
 const product = require('./routes/Product')
+const category = require('./routes/Categories')
 
 app = express()
 app.use(express.json())                  // this allows to pass json to routes
@@ -22,6 +23,7 @@ mongoose.connection.on('error',(err)=>{
 // defining routes starts
 
 app.use('/product', product)
+app.use('/category', category)
 
 //definig routes ends
 
