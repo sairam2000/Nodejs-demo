@@ -1,9 +1,11 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const {MONGO_URI} = require('./KEYS')
-
+const product = require('./routes/Product')
 
 app = express()
+app.use(express.json())                  // this allows to pass json to routes
+
 
 // Mongoose Connection starts
 
@@ -17,10 +19,12 @@ mongoose.connection.on('error',(err)=>{
 
 //  mongoose connection ends
 
+// defining routes starts
 
-app.get('/',(req,res)=>{
-    res.status(200).send('hello world!!')
-})
+app.use('/product', product)
+
+//definig routes ends
+
 
 app.listen(3000,()=>{
     console.log('server running at port 3000')}
