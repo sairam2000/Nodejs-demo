@@ -6,7 +6,7 @@ const router = express.Router()
 
 // create category
 
-router.post('/', (req, res)=>{
+router.post('/create', (req, res)=>{
     if(!req.body.categoryName){
         res.status(422).json({error: 'need to specify category name'})
     }
@@ -24,7 +24,7 @@ router.post('/', (req, res)=>{
 
 // read all categories
 
-router.get('/', (req, res)=>{
+router.get('/readAll', (req, res)=>{
     Category.find()
     .then(categories => {
         res.status(200).json({categories})
@@ -36,7 +36,7 @@ router.get('/', (req, res)=>{
 // remove category
 
 
-router.delete('/:id', (req, res)=>{
+router.delete('/delete/:id', (req, res)=>{
     Category.findByIdAndRemove( req.params.id, {useFindAndModify: false})
     .then(()=>{
         res.status(200).json({message: "successfully deleted the category"})

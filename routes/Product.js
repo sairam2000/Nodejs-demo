@@ -7,7 +7,7 @@ const router = express.Router()
 
 // create product
 
-router.post('/', (req, res)=>{
+router.post('/create', (req, res)=>{
     if(!req.body.productName || !req.body.unitPrice){
         res.status(422).json({error: 'need to specify product name  and unit price '})    //checking for required fields present in body or not
     }
@@ -24,7 +24,7 @@ router.post('/', (req, res)=>{
 
 //  reading singleproduct
 
-router.get('/:id', (req, res)=>{
+router.get('/read/:id', (req, res)=>{
     Product.findById(req.params.id)
     .populate('categoryId', 'categoryName')
     .then(product=>{
@@ -40,7 +40,7 @@ router.get('/:id', (req, res)=>{
 
 // reading all posts
 
-router.get('/', (req, res)=>{
+router.get('/readAll', (req, res)=>{
     Product.find().populate('categoryId','categoryName')
     .then(products => {
         res.status(200).json({products})
@@ -52,7 +52,7 @@ router.get('/', (req, res)=>{
 
 // updating the product details
 
-router.put('/:id', (req, res)=>{
+router.put('/update/:id', (req, res)=>{
     Product.findByIdAndUpdate(
         req.params.id,
         {$set: req.body}, 
@@ -71,7 +71,7 @@ router.put('/:id', (req, res)=>{
 
 // delete product
 
-router.delete('/:id', (req, res)=>{
+router.delete('/delete  /:id', (req, res)=>{
     Product.findByIdAndRemove( req.params.id, {useFindAndModify: false})
     .then(()=>{
         res.status(200).json({message: "successfully deleted the product"})
